@@ -1,0 +1,15 @@
+name: release new version
+
+on:
+  push:
+    tags:
+      - v*.*.*
+      # TODO: remove
+      - r*
+
+jobs:
+  release:
+    name: create new release
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${GITHUB_REF_NAME}"
