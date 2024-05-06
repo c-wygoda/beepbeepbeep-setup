@@ -1,0 +1,22 @@
+name: tag new version
+
+on:
+  pull_request_target:
+    types:
+      - closed
+
+jobs:
+  tag:
+    name: create git tag
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: commitizen-tools/commitizen-action@master
+        with:
+          changelog: true
+          commit: true
+          push: true
+          no_raise: 21
