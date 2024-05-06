@@ -1,0 +1,25 @@
+name: Pull Request
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/bootstrap
+      - name: run pytest
+        shell: sh
+        run: ./scripts/test
+
+  lint:
+    name: Style Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/bootstrap
+      - uses: ./.github/actions/pre-commit
